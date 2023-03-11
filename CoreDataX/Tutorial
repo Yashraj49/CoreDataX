@@ -1,0 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//                When we use \.self as an identifier, we mean “the whole object”, but in practice that doesn’t mean much – a struct is a struct, so it doesn’t have any sort of specific identifying information other than its contents. So what actually happens is that Swift computes the hash value of the struct, which is a way of representing complex data in fixed-size values, then uses that hash as an identifier.
+                
+                
+//                Hash values can be generated in any number of ways, but the concept is identical for all hash-generating functions:
+//
+//                Regardless of the input size, the output should be the same fixed size.
+//                Calculating the same hash for an object twice in a row should return the same value.
+            }
+        }
+    }
+}
+
+//Hashes are commonly used for things like data verification. For example, if you download a 8GB zip file, you can check that it’s correct by comparing your local hash of that file against the server’s – if they match, it means the zip file is identical. Hashes are also used with dictionary keys and sets; that’s how they get their fast look up.
+
+//All this matters because when Xcode generates a class for our managed objects, it makes that class conform to Hashable, which is a protocol that means Swift can generate hash values for it, which in turn means we can use \.self for the identifier. This is also why String and Int work with \.self: they also conform to Hashable.
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
