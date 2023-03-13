@@ -4,13 +4,57 @@
 //
 //  Created by Yashraj jadhav on 11/03/23.
 //
-
+import CoreData
 import SwiftUI
 
 struct ContentView: View {
+    
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: []) var countries: FetchedResults<Country>
+
+    @State private var lastNameFilter = "A"
   //  let students = [Student(name: "Harry Potter") , Student(name: "Hermonie Granger")]
     var body: some View {
-        ContentViewX()
+        VStack {
+            List {
+                ForEach(countries, id: \.self) { country in
+                    Section(country.wrappedFullName) {
+                        ForEach(country.candyArray, id: \.self) { candy in
+                            Text(candy.wrappedName)
+                        }
+                    }
+                }
+            }
+
+            Button("Add") {
+                let candy1 = Candy(context: moc)
+                candy1.name = "Mars"
+                candy1.origin = Country(context: moc)
+                candy1.origin?.shortName = "UK"
+                candy1.origin?.fullNames = "United Kingdom"
+
+                let candy2 = Candy(context: moc)
+                candy2.name = "KitKat"
+                candy2.origin = Country(context: moc)
+                candy2.origin?.shortName = "UK"
+                candy2.origin?.fullNames = "United Kingdom"
+
+                let candy3 = Candy(context: moc)
+                candy3.name = "Twix"
+                candy3.origin = Country(context: moc)
+                candy3.origin?.shortName = "UK"
+                candy3.origin?.fullNames = "United Kingdom"
+
+                let candy4 = Candy(context: moc)
+                candy4.name = "Toblerone"
+                candy4.origin = Country(context: moc)
+                candy4.origin?.shortName = "CH"
+                candy4.origin?.fullNames = "Switzerland"
+
+                try? moc.save()
+            }
+        }
+       // FetchRequestView()
 //        List(students,id: \.self) { student in
 //            Text(student.name)
 //        }
